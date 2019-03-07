@@ -5,7 +5,7 @@
 using namespace std;
 
 void give_memory(int**& A, int M, int N);
-void free_array(int **A, int N);
+void free_array(int**& A, int N);
 void init_array(int **A, int N, int M);
 void print_array(int **A, int N, int M);
 void calc(int **A, int N, int M);
@@ -22,7 +22,7 @@ int main() {
 	cin >> M;
 	cout << endl;
 
-	int** A = new int*[N];
+	int** A;
 
 	give_memory(A, N, M);
 	init_array(A, N, M);
@@ -34,11 +34,16 @@ int main() {
 }
 
 void give_memory(int**& A, int N, int M) {
+	A = new int*[N];
+	if (!A) {
+		cout << "Error!";
+		system("pause");
+	}
 	for (int i = 0; i < N; ++i)
 		A[i] = new (nothrow) int[M];
 }
 
-void free_array(int **A, int N) {
+void free_array(int**& A, int N) {
 	for (int i = 0; i < N; ++i) {
 		delete[]A[i];
 		A[i] = nullptr;
