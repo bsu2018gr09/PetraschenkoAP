@@ -1,11 +1,11 @@
-//Элементы массива А(N), значения которых – простые числа, расположить в порядке возрастания, не нарушая порядка следования других элементов.
+//Р­Р»РµРјРµРЅС‚С‹ РјР°СЃСЃРёРІР° Рђ(N), Р·РЅР°С‡РµРЅРёСЏ РєРѕС‚РѕСЂС‹С… вЂ“ РїСЂРѕСЃС‚С‹Рµ С‡РёСЃР»Р°, СЂР°СЃРїРѕР»РѕР¶РёС‚СЊ РІ РїРѕСЂСЏРґРєРµ РІРѕР·СЂР°СЃС‚Р°РЅРёСЏ, РЅРµ РЅР°СЂСѓС€Р°СЏ РїРѕСЂСЏРґРєР° СЃР»РµРґРѕРІР°РЅРёСЏ РґСЂСѓРіРёС… СЌР»РµРјРµРЅС‚РѕРІ.
 #include <iostream>
 #include <time.h>
 #include <iostream>
 #include <time.h>
 using namespace std;
-void givemem(int* &A, int N);
-void clearmem(int* A);
+void givemem(int *&A, int N);
+void clearmem(int *&A);
 void initArr(int* A, int N);
 void printArr(int* A, int N);
 void calc(int* A, int N);
@@ -19,7 +19,7 @@ int main() {
 	int N;
 	int *A = nullptr, *B = nullptr;
 
-	cout << "Введите размерность массива: ";
+	cout << "Р’РІРµРґРёС‚Рµ СЂР°Р·РјРµСЂРЅРѕСЃС‚СЊ РјР°СЃСЃРёРІР°: ";
 	cin >> N;
 
 	givemem(A, N);
@@ -35,11 +35,11 @@ int main() {
 	return 0;
 }
 
-void clearmem(int* A) {
+void clearmem(int *&A) {
 	delete[] A;
 }
 
-void givemem(int* &A, int N) {
+void givemem(int *&A, int N) {
 	A = new (nothrow) int[N];
 	if (!A) {
 		cout << "Error" << endl;
@@ -49,8 +49,9 @@ void givemem(int* &A, int N) {
 
 void initArr(int* A, int N) {
 	srand(time(0));
+	const int M = 10;
 	for (int i = 0; i < N; ++i) {
-		*(A + i) = rand() % 10 + 3;
+		*(A + i) = rand() % M;
 	}
 }
 
