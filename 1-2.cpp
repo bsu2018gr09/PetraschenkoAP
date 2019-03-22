@@ -3,8 +3,8 @@
 #include <iostream>
 #include <time.h>
 using namespace std;
-void givemem(int* &A, int N);
-void clearmem(int* A);
+void givemem(int *&A, int N);
+void clearmem(int *&A);
 void initArr(int* A, int N);
 void printArr(int* A, int N);
 void calc(int* A, int N);
@@ -31,11 +31,11 @@ int main() {
 	return 0;
 }
 
-void clearmem(int* A) {
+void clearmem(int *&A) {
 	delete[] A;
 }
 
-void givemem(int* &A, int N) {
+void givemem(int *&A, int N) {
 	A = new (nothrow) int[N];
 	if (!A) {
 		cout << "Error" << endl;
@@ -44,8 +44,9 @@ void givemem(int* &A, int N) {
 }
 
 void initArr(int* A, int N) {
+	const int M = 3;
 	for (int i = 0; i < N; ++i) {
-		*(A + i) = rand() % 5 - 2;
+		*(A + i) = rand() % M;
 	}
 }
 
