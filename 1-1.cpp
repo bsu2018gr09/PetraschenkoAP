@@ -45,12 +45,14 @@ void givemem(int *&A, int N) {
 	if (!A) {
 		cout << "Error" << endl;
 		system("pause");
+		exit(1);
 	}
 }
 
 void initArr(int* A, int N) {
+	const int M = 10;
 	for (int i = 0; i < N; ++i) {
-		*(A + i) = rand() % 10;
+		*(A + i) = rand() % M;
 	}
 }
 
