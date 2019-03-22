@@ -38,6 +38,7 @@ int main() {
 
 void clearmem(int *&A) {
 	delete[] A;
+	A = nullptr;
 }
 
 void givemem(int *&A, int N) {
