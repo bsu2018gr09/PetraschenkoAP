@@ -37,6 +37,7 @@ int main() {
 
 void clearmem(int *&A) {
 	delete[] A;
+	A = nullptr;
 }
 
 void givemem(int *&A, int N) {
@@ -44,6 +45,7 @@ void givemem(int *&A, int N) {
 	if (!A) {
 		cout << "Error" << endl;
 		system("pause");
+		exit(1);
 	}
 }
 
