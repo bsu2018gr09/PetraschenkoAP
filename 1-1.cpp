@@ -3,8 +3,8 @@
 #include <iostream>
 #include <time.h>
 using namespace std;
-void givemem(int* &A, int N);
-void clearmem(int* A);
+void givemem(int *&A, int N);
+void clearmem(int *&A);
 void initArr(int* A, int N);
 void printArr(int x);
 void Scan(int* A, int* B, int N);
@@ -36,11 +36,11 @@ int main() {
 	return 0;
 }
 
-void clearmem(int* A) {
+void clearmem(int *&A) {
 	delete[] A;
 }
 
-void givemem(int* &A, int N) {
+void givemem(int *&A, int N) {
 	A = new (nothrow) int[N];
 	if (!A) {
 		cout << "Error" << endl;
