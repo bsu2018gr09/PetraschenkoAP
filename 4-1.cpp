@@ -1,4 +1,4 @@
-﻿//В каждой строке удалить слова, в которых буквы упорядочены в алфавитном порядке и которые начинаются на большую букву.
+//В каждой строке удалить слова, в которых буквы упорядочены в алфавитном порядке и которые начинаются на большую букву.
 //Отсортировать строки по количеству удалённых слов.
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -6,16 +6,23 @@
 #include <fstream>
 #include <cstring>
 using namespace std;
-void giveMemory(char *&str);
-void clearmem(char *&A);
-void deletewords(char *str, char*buff, char *check);
+
+const int N = 200;
+const int M = 7;
+
+void giveMemoryChar(char *&str);
+void giveMemoryInt(int *&Arr);
+
+void clearMemoryChar(char *&str);
+void clearMemoryInt(int *&Arr);
+
+void deletewords(char *str, char*buff, char check[M]);
 char* readingstring(char *&str, char *&buff);
-void print(char *buff, char *str);
+void print(char *buff);
 
 ifstream in("d:\\text.txt");
 ofstream out("d:\\result.txt");
 
-const int N = 200;
 
 int main() {
 	setlocale(LC_ALL, "Russian");
@@ -25,13 +32,11 @@ int main() {
 
 	char *buff = nullptr;
 	char *str = nullptr;
-	char *check = " ,.-;:";
+	char check[M] = " ,.-;:";
 
-	giveMemory(str);
-	giveMemory(buff);
 	deletewords(str, buff, check);
-	clearmem(str);
-	clearmem(buff);
+	clearMemoryChar(str);
+	clearMemoryChar(buff);
 
 	cout << endl;
 
@@ -39,29 +44,50 @@ int main() {
 	return 0;
 }
 
-void clearmem(char *&A) {
-	delete[] A;
+void clearMemoryChar(char *&str) {
+	delete[] str;
 }
 
-void giveMemory(char *&str) {
+void clearMemoryInt(int *&Arr) {
+	delete[] Arr;
+}
+
+void giveMemoryChar(char *&str) {
 	str = new(nothrow) char[N];
 	if (!str) {
 		cout << "error" << "\n";
 	}
 }
 
-void deletewords(char *str, char*buff, char *check) {
-	char *tmp;
-	int begin, end, i = 0, k = 0;
+void giveMemoryInt(int *&Arr) {
+	Arr = new(nothrow) int[N];
+	if (!Arr) {
+		cout << "error" << "\n";
+	}
+}
+
+char* readingstring(char *&str, char *&buff) {
+	giveMemoryChar(buff);
+	in.getline(buff, N - 1);
+	str = buff;
+	return str;
+}
+
+void deletewords(char *str, char *buff, char check[M]) {
+	char *tmp = nullptr;
+	int begin, end, i = 0;
+
+	giveMemoryInt(CountDeleteWords);
+	giveMemoryChar(tmp);
 
 	while (1) {
 
+		
 		readingstring(str, buff);
 
 		if (in.fail()) in.clear();
 
 		while (*str) {
-
 			begin = strspn(str, check);
 			str += begin;
 			end = strcspn(str, check);
@@ -76,32 +102,23 @@ void deletewords(char *str, char*buff, char *check) {
 					}
 					else { str = tmp + end; break; }
 				}
-				if (i == end - 2)
+				if (i == end - 2) {
 					strcpy(tmp, tmp + end);
+				}
 				i = 0;
 			}
 			else str = tmp + end;
 		}
-
-		print(buff, str);
+		print(buff);
 		if (in.eof()) break;
-
 	}
-	in.close();//закрыли файл
-	out.close();//закрыли файл}
+	in.close();
+	out.close();
+	clearMemoryChar(tmp);
+	clearMemoryInt(CountDeleteWords);
 }
 
-char* readingstring(char *&str, char *&buff) {
-	in.getline(buff, N - 1);
-	str = buff;
-	return str;
-}
-
-void print(char *buff, char *str) {
+void print(char *buff) {
 	cout << buff << endl;
 	out << buff << endl;
-}
-
-void sortdeletestrings(char *str, char *buff) {
-
 }
