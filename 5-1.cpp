@@ -5,6 +5,7 @@ using namespace std;
 struct color { unsigned char r; unsigned char g; unsigned char b; } c;
 
 int main() {
+	setlocale(LC_ALL, "Russian");
 	ifstream in("d:\\1.bmp", ios::binary);
 	ofstream out("d:\\result.bmp", ios::binary);
 	if (!in) { cout << "No file d:\\1.bmp. Can't open\n"; exit(1); }
