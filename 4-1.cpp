@@ -11,10 +11,8 @@ const int N = 200;
 const int M = 7;
 
 void giveMemoryChar(char *&str);
-void giveMemoryInt(int *&Arr);
 
 void clearMemoryChar(char *&str);
-void clearMemoryInt(int *&Arr);
 
 void deletewords(char *str, char*buff, char check[M]);
 char* readingstring(char *&str, char *&buff);
@@ -48,20 +46,9 @@ void clearMemoryChar(char *&str) {
 	delete[] str;
 }
 
-void clearMemoryInt(int *&Arr) {
-	delete[] Arr;
-}
-
 void giveMemoryChar(char *&str) {
 	str = new(nothrow) char[N];
 	if (!str) {
-		cout << "error" << "\n";
-	}
-}
-
-void giveMemoryInt(int *&Arr) {
-	Arr = new(nothrow) int[N];
-	if (!Arr) {
 		cout << "error" << "\n";
 	}
 }
