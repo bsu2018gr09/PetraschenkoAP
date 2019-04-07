@@ -14,8 +14,6 @@ int main() {
 	unsigned int w, h;
 	int tmp;
 
-	c.r=c.g=c.b=0;
-
 	in.read((char *)&buf, 18);
 	out.write((char *)&buf, 18);
 	in.read((char *)&w, 4);
@@ -25,14 +23,26 @@ int main() {
 	in.read((char *)&buf, 28); 
 	out.write((char *)&buf, 28);
 
-	tmp = w / 255 + 1;
+	tmp = w / 255;
 
+	c.r=c.g=c.b=0;
+	//горизонтальный градиент (слева-направо)
 	for (int i = 1; i <= h; ++i) {
 		for (int j = 1; j <= w; ++j) {
-			out.write((char *)&c, 3);
 			c.g =j / tmp;
 			c.b = j / tmp;
 			c.r = j / tmp;
+			out.write((char *)&c, 3);
+		}
+	}
+
+	//горизонтальный градиент (справа-налево)
+	for (int i = 1; i <= h; ++i) {
+		for (int j = 1; j <= w; ++j) {
+			c.g = 255 - j / tmp;
+			c.b = 255 - j / tmp;
+			c.r = 255 - j / tmp;
+			out.write((char *)&c, 3);
 		}
 	}
 
