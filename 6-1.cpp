@@ -3,11 +3,11 @@
 using namespace std;
 
 class Matrixs {
-public:
-	Matrixs() { cout << "Конструктор работает" << endl; }
+public: //ГДЕ great4???? что то многого нет!!!!
+	Matrixs() { cout << "Конструктор работает" << endl; }//ничего он у тебя не работатет. Он же ничего не инициализирует!!!!!
 	~Matrixs() { cout << "Деструктор работает" << endl; }
 
-	void GetMatrix() {
+	void GetMatrix() {//get должно не печатать, а возвращать!!!
 		for (int i = 0; i < M; ++i) {
 			for (int j = 0; j < N; ++j)
 				cout << Arr[i][j] << " ";
