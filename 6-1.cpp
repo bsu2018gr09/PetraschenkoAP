@@ -127,7 +127,7 @@ public:
 		return *this;
 	};
 
-	 operator[](int value) {
+	 int* operator[](int value) {
 		Matrixs mat;
 		if (value<0 || value>M){
 			cout << "Ошибка\n";
