@@ -28,7 +28,7 @@ public:
 		Arr[0][0] = a; Arr[0][1] = b; Arr[1][0] = c; Arr[1][1] = d;
 	};
 
-	friend ostream& operator<< (ostream &out, const Matrixs &mat) { //вывод
+	friend ostream& operator<< (ostream &out, const Matrixs &mat) {
 		for (int i = 0; i < 2; ++i) {
 			for (int j = 0; j < 2; ++j)
 				out << mat.Arr[i][j] << " ";
@@ -37,7 +37,7 @@ public:
 		return out;
 	};
 
-	friend istream& operator >> (istream &in, Matrixs &mat) { //ввод
+	friend istream& operator >> (istream &in, Matrixs &mat) {
 		for (int i = 0; i < 2; ++i) {
 			for (int j = 0; j < 2; ++j) {
 				cout << "Enter element of " << i << " stroki i " << j << " stolbtsa: ";
@@ -127,14 +127,20 @@ public:
 		return *this;
 	};
 
-	 int* operator[](int value) {
+	bool operator==(Matrixs &mat) {
+		if (mat.Arr == Arr) {
+			return 1;
+		} 
+		return 0;
+	};
+
+	int* operator[](int value) {
 		Matrixs mat;
 		if (value<0 || value>M){
 			cout << "Ошибка\n";
 			exit(1);
 		}
-
-			return mat[value];
+			return Arr[value];
 	};
 
 private:
@@ -149,7 +155,7 @@ int main()
 	int M = 2, N = 2;
 
 	Matrixs a; //Иницилизация с дефолт параметрами
-	cout << a << endl;
+	cout << a << endl; //перегруженные оператор вывода
 
 	Matrixs b(1,2,3,4); //Иницилизация с заданными параметрами
 	cout << b << endl;
@@ -171,9 +177,13 @@ int main()
 	c = b; //перегруженный оператор присваивания
 	cout << c << endl;
 
-	cin >> c; //перегруженный оператор вывода
-	cout << c;
+	cin >> c; //перегруженный оператор ввода
+	cout << c << endl;
 	
+	c[0][0] = 5; 
+	cout << c << endl;
+
+	if (a == a) cout << "+"; else cout << "-"; //перегруженный оператор сравнения
 
 	system("pause");
 	return 0;
