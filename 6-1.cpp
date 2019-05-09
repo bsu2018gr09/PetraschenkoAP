@@ -174,7 +174,6 @@ int main()
 	cin >> c; //перегруженный оператор вывода
 	cout << c;
 	
-	cin >> c[0][0];
 
 	system("pause");
 	return 0;
