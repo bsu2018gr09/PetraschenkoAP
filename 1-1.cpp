@@ -1,4 +1,4 @@
-﻿//Даны точки плоскости своими координатами в виде двух одномерных массивов (случайные числа).
+//Даны точки плоскости своими координатами в виде двух одномерных массивов (случайные числа).
 //Точки плоскости рассортировать по возрастанию расстояния до прямой ax + by + c = 0.
 #include <iostream>
 #include <time.h>
@@ -6,9 +6,9 @@ using namespace std;
 void givemem(int *&A, int N);
 void clearmem(int *&A);
 void initArr(int* A, int N);
-void printArr(int x);
-void Scan(int* A, int* B, int N);
-void calc(int* A, int* B, int N);
+void printArr(int *A, int N);
+void Sort(int *A, int *B, int* D, int N);
+void length(int *A, int *B, int *C, int N);
 
 int main() {
 	setlocale(LC_ALL, "Russian");
@@ -16,7 +16,7 @@ int main() {
 	cout << "Дана прямая: 2x+3y+1=0" << endl;
 
 	int N;
-	int *A = nullptr, *B = nullptr;
+	int *A = nullptr, *B = nullptr, *C=nullptr;
 
 	cout << "Введите размерность массива: ";
 	cin >> N;
@@ -25,10 +25,17 @@ int main() {
 	initArr(A, N);
 	givemem(B, N);
 	initArr(B, N);
-	Scan(A, B, N);
-	calc(A, B, N);
+	givemem(C, N);
+	length(A, B, C, N);
+	Sort(A, B, C, N);
+	cout << "Координата Х: ";
+	printArr(A, N);
+	cout << endl;
+	cout << "Координата Y: ";
+	printArr(B, N);
 	clearmem(A);
 	clearmem(B);
+	clearmem(C);
 
 	cout << endl;
 
@@ -38,49 +45,39 @@ int main() {
 
 void clearmem(int *&A) {
 	delete[] A;
-	A = nullptr;
 }
 
 void givemem(int *&A, int N) {
 	A = new (nothrow) int[N];
 	if (!A) {
 		cout << "Error" << endl;
-		system("pause");
 		exit(1);
 	}
 }
 
 void initArr(int* A, int N) {
-	const int M = 10;
 	for (int i = 0; i < N; ++i) {
-		*(A + i) = rand() % M;
+		*(A + i) = rand() % 10;
 	}
 }
 
-void printArr(int x) {
-	cout << x << " ";
+void printArr(int *A, int N) {
+	for (int i = 0; i < N - 1; ++i)
+		cout << *(A + i) << " ";
 }
 
-void Scan(int* A, int* B, int N) {
-	int j = 1;
-	int temp_1, temp_2;
-	for (int i = 0; i < N - 1; ++i) {
-		for (; j < N; ++j) {
-			temp_1 = abs(2 * *(A + i) + 3 * *(B + i) + 1);
-			temp_2 = abs(2 * *(A + j) + 3 * *(B + j) + 1);
-			if (temp_1 > temp_2) {
-				swap(*(A + i), *(A + j));
-				swap(*(B + i), *(B + j));
+void length(int *A, int *B, int *C, int N) {
+		for (int i = 0; i < N; i++)
+			*(C + i) = abs(*(A + i) + *(B + i) + 1) / sqrt(2 * 2 + 3 * 3);
+	}
+
+void Sort(int *A, int *B, int* C, int N) {
+		for (int i = 0; i < N - 1; ++i) {
+			for (int j = 0; j < N - i - 1; ++j) {
+				if (*(C + j) > *(C + j+1)) {
+					swap(*(A + j), *(A + j + 1));
+						swap(*(B + j), *(B + j + 1));
+				}
 			}
 		}
-		j = i + 1;
 	}
-}
-
-void calc(int* A, int* B, int N) {
-	int x;
-	for (int i = 0; i < N; ++i) {
-		x = abs(2 * *(A + i) + 3 * *(B + i) + 1);
-		printArr(x);
-	}
-}
