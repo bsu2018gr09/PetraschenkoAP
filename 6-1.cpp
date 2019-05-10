@@ -209,6 +209,19 @@ public:
 		return Arr[i][j];
 	};
 
+	void OutElemOfMatrix(int index, int elem) { //1-какой эллемент заменяем. 2-на какой заменяем
+		int i, j;
+		if (index % M != 0) {
+			i = 0; j = index;
+		}
+		else {
+			i = M / index;
+			j = index - M;
+		}
+		Arr[i][j] = elem;
+		cout << Arr[i][j];
+	}
+
 private:
 	const int M=2, N=2; //размер матрицы
 	int Arr[2][2];
@@ -254,6 +267,9 @@ int main()
 
 	if (a == a) cout << "Матрицы равны" << endl; else cout << "Матрицы неравны" << endl; //перегруженный оператор сравнения
 	if (a == b) cout << "Матрицы равны" << endl; else cout << "Матрицы неравны" << endl; //перегруженный оператор сравнения
+
+	c.OutElemOfMatrix(3, 5);
+	cout << endl;
 
 	system("pause");
 	return 0;
