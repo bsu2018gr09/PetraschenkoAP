@@ -3,32 +3,38 @@
 #include <ctime>
 using namespace std;
 
-class Matrixs {
+class Matrix2 {
 public:
-	Matrixs() : Arr{ 0 } { ; };
-	Matrixs(int A) { //иницилизируем в промежутке от 0 до А-1
+	Matrix2() : Arr{ 0 } { ; };
+	Matrix2(int A) { //иницилизируем в промежутке от 0 до А-1
 		for (int i = 0; i < M; ++i)
 			for (int j = 0; j < N; ++j)
 				Arr[i][j] = rand() % A;
 	};
-	Matrixs operator=(Matrixs &mat) { //присвоить
+	Matrix2 operator=(Matrix2 &mat) { //присвоить
 		for (int i = 0; i < M; ++i)
 			for (int j = 0; j < N; ++j)
 				Arr[i][j] = mat.Arr[i][j];
 		return *this;
 	};
-	Matrixs operator=(int value) { //присвоить
-		Matrixs result;
+	const Matrix2 operator=(const Matrix2 &mat) { //присвоить
+		for (int i = 0; i < M; ++i)
+			for (int j = 0; j < N; ++j)
+				Arr[i][j] = mat.Arr[i][j];
+		return *this;
+	};
+	Matrix2 operator=(int value) { //присвоить
+		Matrix2 result;
 		result.Arr[0][0] = value;
 		return result;
 	};
-	~Matrixs() { ; };
+	~Matrix2() { ; };
 
-	Matrixs(int a, int b, int c, int d) {
+	Matrix2(int a, int b, int c, int d) {
 		Arr[0][0] = a; Arr[0][1] = b; Arr[1][0] = c; Arr[1][1] = d;
 	};
 
-	friend ostream& operator<< (ostream &out, const Matrixs &mat) {
+	friend ostream& operator<< (ostream &out, const Matrix2 &mat) {
 		for (int i = 0; i < 2; ++i) {
 			for (int j = 0; j < 2; ++j)
 				out << mat.Arr[i][j] << " ";
@@ -37,7 +43,7 @@ public:
 		return out;
 	};
 
-	friend istream& operator >> (istream &in, Matrixs &mat) {
+	friend istream& operator >> (istream &in, Matrix2 &mat) {
 		for (int i = 0; i < 2; ++i) {
 			for (int j = 0; j < 2; ++j) {
 				cout << "Enter element of " << i << " stroki i " << j << " stolbtsa: ";
@@ -48,11 +54,7 @@ public:
 		return in;
 	};
 
-	Matrixs operator()(Matrixs &mat) {
-		;
-	}
-
-	Matrixs operator+=(Matrixs &mat) {
+	Matrix2 operator+=(Matrix2 &mat) {
 		for (int i = 0; i < 2; ++i)
 			for (int j = 0; j < 2; ++j) {
 				Arr[i][j] = Arr[i][j] + mat.Arr[i][j];
@@ -60,31 +62,62 @@ public:
 		return *this;
 	};
 
-	Matrixs operator-=(Matrixs &mat) {
+	const Matrix2 operator+=(const Matrix2 &mat) {
+		for (int i = 0; i < 2; ++i)
+			for (int j = 0; j < 2; ++j) {
+				Arr[i][j] = Arr[i][j] + mat.Arr[i][j];
+			}
+		return *this;
+	};
+
+	Matrix2 operator-=(Matrix2 &mat) {
 		for (int i = 0; i < 2; ++i)
 			for (int j = 0; j < 2; ++j) {
 				Arr[i][j] = Arr[i][j] - mat.Arr[i][j];
 			}
 	};
 
-	Matrixs operator-(Matrixs &mat) {
-		Matrixs result;
+	const Matrix2 operator-=(const Matrix2 &mat) {
+		for (int i = 0; i < 2; ++i)
+			for (int j = 0; j < 2; ++j) {
+				Arr[i][j] = Arr[i][j] - mat.Arr[i][j];
+			}
+	};
+
+	Matrix2 operator-(Matrix2 &mat) {
+		Matrix2 result;
 		for (int i = 0; i < 2; ++i)
 			for (int j = 0; j < 2; ++j)
 				result.Arr[i][j] = this->Arr[i][j] - mat.Arr[i][j];
 		return result;
 	};
 
-	Matrixs operator+(Matrixs &mat) {
-		Matrixs result;
+	const Matrix2 operator-(const Matrix2 &mat) {
+		Matrix2 result;
+		for (int i = 0; i < 2; ++i)
+			for (int j = 0; j < 2; ++j)
+				result.Arr[i][j] = this->Arr[i][j] - mat.Arr[i][j];
+		return result;
+	};
+
+	Matrix2 operator+(Matrix2 &mat) {
+		Matrix2 result;
 		for (int i = 0; i < 2; ++i)
 			for (int j = 0; j < 2; ++j)
 				result.Arr[i][j] = this->Arr[i][j] + mat.Arr[i][j];
 		return result;
 	};
 
-	Matrixs operator*(Matrixs &mat) {
-		Matrixs result(0, 0, 0, 0);
+	const Matrix2 operator+(const Matrix2 &mat) {
+		Matrix2 result;
+		for (int i = 0; i < 2; ++i)
+			for (int j = 0; j < 2; ++j)
+				result.Arr[i][j] = this->Arr[i][j] + mat.Arr[i][j];
+		return result;
+	};
+
+	Matrix2 operator*(Matrix2 &mat) {
+		Matrix2 result(0, 0, 0, 0);
 		for (int i = 0; i < M; ++i) {
 			for (int j = 0; j < M; ++j) {
 				for (int k = 0; k < M; ++k) {
@@ -95,8 +128,20 @@ public:
 		return result;
 	};
 
-	Matrixs operator*=(Matrixs &mat) {
-		Matrixs result(0, 0, 0, 0);
+	const Matrix2 operator*(const Matrix2 &mat) {
+		Matrix2 result(0, 0, 0, 0);
+		for (int i = 0; i < M; ++i) {
+			for (int j = 0; j < M; ++j) {
+				for (int k = 0; k < M; ++k) {
+					result.Arr[i][j] += this->Arr[i][k] * mat.Arr[k][j];
+				}
+			}
+		}
+		return result;
+	};
+
+	Matrix2 operator*=(Matrix2 &mat) {
+		Matrix2 result(0, 0, 0, 0);
 		for (int i = 0; i < M; ++i) {
 			for (int j = 0; j < M; ++j) {
 				for (int k = 0; k < M; ++k) {
@@ -107,8 +152,20 @@ public:
 		return *this;
 	};
 
-	Matrixs operator*(int value) {
-		Matrixs result;
+	const Matrix2 operator*=(const Matrix2 &mat) {
+		Matrix2 result(0, 0, 0, 0);
+		for (int i = 0; i < M; ++i) {
+			for (int j = 0; j < M; ++j) {
+				for (int k = 0; k < M; ++k) {
+					this->Arr[i][j] += Arr[i][k] * mat.Arr[k][j];
+				}
+			}
+		}
+		return *this;
+	};
+
+	Matrix2 operator*(int value) {
+		Matrix2 result;
 		for (int i = 0; i < M; ++i) {
 			for (int j = 0; j < M; ++j) {
 				result.Arr[i][j] = this->Arr[i][j] * value;
@@ -117,8 +174,8 @@ public:
 		return result;
 	};
 
-	Matrixs operator*=(int value) {
-		Matrixs result;
+	Matrix2 operator*=(int value) {
+		Matrix2 result;
 		for (int i = 0; i < M; ++i) {
 			for (int j = 0; j < M; ++j) {
 				this->Arr[i][j] = Arr[i][j] * value;
@@ -127,20 +184,29 @@ public:
 		return *this;
 	};
 
-	bool operator==(Matrixs &mat) {
+	bool operator==(Matrix2 &mat) {
 		if (mat.Arr == Arr) {
 			return 1;
 		} 
 		return 0;
 	};
 
-	int* operator[](int value) {
-		Matrixs mat;
-		if (value<0 || value>M){
+	int& operator[](int index) { //нумерация идёт с 0
+		Matrix2 mat;
+		if (index<0 || index>2*M) {
 			cout << "Ошибка\n";
+			return Arr[M][N];
 			exit(1);
 		}
-			return Arr[value];
+		int i, j;
+		if (index % M != 0) {
+			i = 0; j = index;
+		}
+		else {
+			i = M / index;
+			j = index - M;
+		}
+		return Arr[i][j];
 	};
 
 private:
@@ -154,21 +220,24 @@ int main()
 
 	int M = 2, N = 2;
 
-	Matrixs a; //Иницилизация с дефолт параметрами
+	const Matrix2 E{1,0,0,1}; //иницилизация константной матрицы
+	cout << E << endl;
+
+	Matrix2 a; //Иницилизация с дефолт параметрами
 	cout << a << endl; //перегруженные оператор вывода
 
-	Matrixs b(1,2,3,4); //Иницилизация с заданными параметрами
+	Matrix2 b(1,2,3,4); //Иницилизация с заданными параметрами
 	cout << b << endl;
 
-	Matrixs c;
-	c = b + b; //пеегруженный оператор сложения
+	Matrix2 c;
+	c = b + E; //пеегруженный оператор сложения
 	cout << c << endl;
 
 	c = b - b; //пеегруженный оператор вычитания
 	cout << c << endl;
 
 
-	c = b * b; //пеегруженный оператор умножения
+	c = b * E; //пеегруженный оператор умножения
 	cout << c << endl;
 
 	c = b * 5; //пеегруженный оператор умножения
@@ -177,13 +246,14 @@ int main()
 	c = b; //перегруженный оператор присваивания
 	cout << c << endl;
 
-	cin >> c; //перегруженный оператор ввода
-	cout << c << endl;
+	//cin >> c; //перегруженный оператор ввода
+	//cout << c << endl;
 	
-	c[0][0] = 5; 
+	c[3] = 5; 
 	cout << c << endl;
 
-	if (a == a) cout << "+"; else cout << "-"; //перегруженный оператор сравнения
+	if (a == a) cout << "Матрицы равны" << endl; else cout << "Матрицы неравны" << endl; //перегруженный оператор сравнения
+	if (a == b) cout << "Матрицы равны" << endl; else cout << "Матрицы неравны" << endl; //перегруженный оператор сравнения
 
 	system("pause");
 	return 0;
