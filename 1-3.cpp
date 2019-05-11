@@ -8,9 +8,9 @@ void givemem(int *&A, int N);
 void clearmem(int *&A);
 void initArr(int* A, int N);
 void printArr(int* A, int N);
-void calc(int* A, int N);
-void sortSimple(int* A, int i, int t, int count, int N);
-void countSimple(int*A, int count, int N);
+void FindSimpleNumbers(int *A, int N);
+int CountSimpleNumbers(int *&A, int &count, int N);
+bool PrimeOrNo(int valueofarr);
 
 
 int main() {
@@ -20,13 +20,14 @@ int main() {
 	int *A = nullptr, *B = nullptr;
 
 	cout << "Введите размерность массива: ";
-	cin >> N;
+	N = 5;
 
 	givemem(A, N);
 	initArr(A, N);
 	printArr(A, N);
 	cout << endl;
-	calc(A, N);
+	FindSimpleNumbers(A, N);
+	printArr(A, N);
 	clearmem(A);
 
 	cout << endl;
@@ -37,7 +38,6 @@ int main() {
 
 void clearmem(int *&A) {
 	delete[] A;
-	A = nullptr;
 }
 
 void givemem(int *&A, int N) {
@@ -45,15 +45,13 @@ void givemem(int *&A, int N) {
 	if (!A) {
 		cout << "Error" << endl;
 		system("pause");
-		exit(1);
 	}
 }
 
 void initArr(int* A, int N) {
 	srand(time(0));
-	const int M = 10;
 	for (int i = 0; i < N; ++i) {
-		*(A + i) = rand() % M;
+		*(A + i) = rand() % 10 + 3;
 	}
 }
 
@@ -62,48 +60,32 @@ void printArr(int* A, int N) {
 		cout << *(A + i) << " ";
 }
 
-void calc(int* A, int N) {
-	int t = 1, count = 0;
-	countSimple(A, count, N);
-	for (int i = 0; i < N - 1; ++i) {
-		sortSimple(A, i, t, count, N);
-		t = 1 + i;
-	}
-	for (int k = N - count; k < N - 1; ++k) {
-			if (*(A + k) < *(A + k + 1))
-				swap(*(A + k), *(A + k + 1));
+void FindSimpleNumbers(int *A, int N) {
+	int count = 0, i;
+	CountSimpleNumbers(A, count, N);
+	for (int i = 0; i < N - 1; ++i)
+		if (PrimeOrNo(*(A + i))) {
+			for (int j = i+1; j < N; ++j)
+				if (PrimeOrNo(*(A + j)) && *(A + i) > *(A + j)) {
+					swap(*(A + i), *(A + j));
+					printArr(A, N);
+					cout << endl;
+				}
 		}
-		printArr(A, N);
 }
 
-void sortSimple(int* A, int i, int t, int count, int N) {
-	int k = 2, p = 2, temp_1 = 0, temp_2 = 0;
-	for (; t < N; ++t) {
-		for (; k <= *(A + i) / 2; ++k) {
-			if (*(A + i) % k == 0)
-				++temp_1;
-		}
-		for (; p <= *(A + t) / 2; ++p) {
-			if (*(A + t) % p == 0)
-				++temp_2;
-		}
-		if (temp_1 == 0 && temp_2 != 0) {
-			swap(*(A + i), *(A + t));
-			break;
-		}
-		k = 2;
-		p = 2;
-	}
+int CountSimpleNumbers(int *&A, int &count, int N) {
+	for (int i = 0; i < N; ++i)
+		if (PrimeOrNo(*(A+i))) ++count;
+	return count;
 }
 
-void countSimple(int*A, int count, int N) {
-	int temp = 0, k = 2;
-	for (int i = 0; i < N; ++i) {
-		for (; k <= *(A + i) / 2; ++k) {
-			if (*(A + i) % k == 0)
-				++temp;
-		}
-		if (temp == 0)
-			++count;
+bool PrimeOrNo(int valueofarr) {
+	int k = 2;
+	const int value = valueofarr / 2;
+	while (k <= value) {
+		if (valueofarr % k == 0) { return true; }
+		++k;
 	}
+	return false;
 }
