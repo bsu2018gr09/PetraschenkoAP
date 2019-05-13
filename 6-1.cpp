@@ -54,7 +54,7 @@ public:
 		return in;
 	};
 
-	Matrix2 operator+=(Matrix2 &mat) {
+	Matrix2 operator+=(Matrix2 &mat) {//А зачем их две??? C const и без?
 		for (int i = 0; i < 2; ++i)
 			for (int j = 0; j < 2; ++j) {
 				Arr[i][j] = Arr[i][j] + mat.Arr[i][j];
@@ -70,21 +70,21 @@ public:
 		return *this;
 	};
 
-	Matrix2 operator-=(Matrix2 &mat) {
+	Matrix2 operator-=(Matrix2 &mat) {//А зачем их две??? C const и без?
 		for (int i = 0; i < 2; ++i)
 			for (int j = 0; j < 2; ++j) {
 				Arr[i][j] = Arr[i][j] - mat.Arr[i][j];
-			}
+			}// а почему нет return?????????????
 	};
 
 	const Matrix2 operator-=(const Matrix2 &mat) {
 		for (int i = 0; i < 2; ++i)
 			for (int j = 0; j < 2; ++j) {
 				Arr[i][j] = Arr[i][j] - mat.Arr[i][j];
-			}
+			}// а почему нет return?????????????
 	};
 
-	Matrix2 operator-(Matrix2 &mat) {
+	Matrix2 operator-(Matrix2 &mat) {//А зачем их две??? C const и без?
 		Matrix2 result;
 		for (int i = 0; i < 2; ++i)
 			for (int j = 0; j < 2; ++j)
@@ -100,7 +100,7 @@ public:
 		return result;
 	};
 
-	Matrix2 operator+(Matrix2 &mat) {
+	Matrix2 operator+(Matrix2 &mat) {//А зачем их две??? C const и без?
 		Matrix2 result;
 		for (int i = 0; i < 2; ++i)
 			for (int j = 0; j < 2; ++j)
@@ -116,7 +116,7 @@ public:
 		return result;
 	};
 
-	Matrix2 operator*(Matrix2 &mat) {
+	Matrix2 operator*(Matrix2 &mat) {//А зачем их две??? C const и без?
 		Matrix2 result(0, 0, 0, 0);
 		for (int i = 0; i < M; ++i) {
 			for (int j = 0; j < M; ++j) {
@@ -128,7 +128,7 @@ public:
 		return result;
 	};
 
-	const Matrix2 operator*(const Matrix2 &mat) {
+	const Matrix2 operator*(const Matrix2 &mat) {//зачем ты реализовал эти функции, если их не протестировал в main )))
 		Matrix2 result(0, 0, 0, 0);
 		for (int i = 0; i < M; ++i) {
 			for (int j = 0; j < M; ++j) {
@@ -140,7 +140,7 @@ public:
 		return result;
 	};
 
-	Matrix2 operator*=(Matrix2 &mat) {
+	Matrix2 operator*=(Matrix2 &mat) {//зачем ты реализовал эти функции, если их не протестировал в main )))
 		Matrix2 result(0, 0, 0, 0);
 		for (int i = 0; i < M; ++i) {
 			for (int j = 0; j < M; ++j) {
@@ -152,7 +152,7 @@ public:
 		return *this;
 	};
 
-	const Matrix2 operator*=(const Matrix2 &mat) {
+	const Matrix2 operator*=(const Matrix2 &mat) {//зачем ты реализовал эти функции, если их не протестировал в main )))
 		Matrix2 result(0, 0, 0, 0);
 		for (int i = 0; i < M; ++i) {
 			for (int j = 0; j < M; ++j) {
@@ -164,7 +164,7 @@ public:
 		return *this;
 	};
 
-	Matrix2 operator*(int value) {
+	Matrix2 operator*(int value) {//зачем ты реализовал эти функции, если их не протестировал в main )))
 		Matrix2 result;
 		for (int i = 0; i < M; ++i) {
 			for (int j = 0; j < M; ++j) {
@@ -174,7 +174,7 @@ public:
 		return result;
 	};
 
-	Matrix2 operator*=(int value) {
+	Matrix2 operator*=(int value) {//зачем ты реализовал эти функции, если их не протестировал в main ))) 
 		Matrix2 result;
 		for (int i = 0; i < M; ++i) {
 			for (int j = 0; j < M; ++j) {
