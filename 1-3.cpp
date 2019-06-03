@@ -20,10 +20,11 @@ int main() {
 	int *A = nullptr, *B = nullptr;
 
 	cout << "Введите размерность массива: ";
-	N = 5;
+	N = 20;
 
 	givemem(A, N);
 	initArr(A, N);
+	cout << endl;
 	printArr(A, N);
 	cout << endl;
 	FindSimpleNumbers(A, N);
@@ -61,16 +62,15 @@ void printArr(int* A, int N) {
 }
 
 void FindSimpleNumbers(int *A, int N) {
-	int count = 0, i;
+	int count = 0, tmp;
 	CountSimpleNumbers(A, count, N);
 	for (int i = 0; i < N - 1; ++i)
 		if (PrimeOrNo(*(A + i))) {
-			for (int j = i+1; j < N; ++j)
-				if (PrimeOrNo(*(A + j)) && *(A + i) > *(A + j)) {
+			for (int j = i+1; j < N; j++)
+			{
+				if (PrimeOrNo(*(A + j)) && *(A + i) < *(A + j))
 					swap(*(A + i), *(A + j));
-					printArr(A, N);
-					cout << endl;
-				}
+			}
 		}
 }
 
@@ -81,11 +81,11 @@ int CountSimpleNumbers(int *&A, int &count, int N) {
 }
 
 bool PrimeOrNo(int valueofarr) {
-	int k = 2;
-	const int value = valueofarr / 2;
-	while (k <= value) {
-		if (valueofarr % k == 0) { return true; }
-		++k;
+	if (valueofarr <= 1) return false;
+	if (valueofarr == 2) return true;
+	for (int i = 2; i <= sqrt(valueofarr); i++) {
+		if (valueofarr % i == 0)
+			return false;
 	}
-	return false;
+	return true;
 }
