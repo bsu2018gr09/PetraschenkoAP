@@ -62,7 +62,7 @@ void initArr(int* A, int N) {
 }
 
 void printArr(int *A, int N) {
-	for (int i = 0; i < N - 1; ++i)
+	for (int i = 0; i < N; ++i)
 		cout << *(A + i) << " ";
 }
 
