@@ -1,4 +1,4 @@
-﻿//Положительные элементы массива А(N) переставить в конец массива, сохраняя порядок следования.
+//Положительные элементы массива А(N) переставить в конец массива, сохраняя порядок следования.
 //Отрицательные элементы расположить в порядке убывания. Дополнительный массив не использовать.
 #include <iostream>
 #include <time.h>
@@ -13,7 +13,7 @@ int main() {
 	setlocale(LC_ALL, "Russian");
 
 	int N;
-	int *A = nullptr, *B = nullptr;
+	int *A = nullptr;
 
 	cout << "Введите размерность массива: ";
 	cin >> N;
@@ -33,21 +33,20 @@ int main() {
 
 void clearmem(int *&A) {
 	delete[] A;
-	A = nullptr;
 }
 
 void givemem(int *&A, int N) {
 	A = new (nothrow) int[N];
 	if (!A) {
 		cout << "Error" << endl;
-		system("pause");
+		exit(1);
 	}
 }
 
 void initArr(int* A, int N) {
-	const int M = 3;
+	const int M = 8;
 	for (int i = 0; i < N; ++i) {
-		*(A + i) = rand() % M;
+		*(A + i) = rand() % M -2;
 	}
 }
 
