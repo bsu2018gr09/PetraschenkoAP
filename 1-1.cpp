@@ -71,7 +71,7 @@ void length(int *A, int *B, int *C, int N) {
 			*(C + i) = abs(*(A + i) + *(B + i) + 1) / sqrt(2 * 2 + 3 * 3);
 	}
 
-void Sort(int *A, int *B, int* C, int N) {
+void Sort(int *A, int *B, int* C, int N) { // что за наивный код сортировок???? В задании же было: нормальные алгоритмы сортировки **для N=100000**  прочитать на https://habr.com/ru/post/414653/   
 		for (int i = 0; i < N - 1; ++i) {
 			for (int j = 0; j < N - i - 1; ++j) {
 				if (*(C + j) > *(C + j+1)) {
