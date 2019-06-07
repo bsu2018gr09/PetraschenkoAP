@@ -48,7 +48,7 @@ void givemem(int *&A, int N) {
 		system("pause");
 	}
 }
-
+ 
 void initArr(int* A, int N) {
 	srand(time(0));
 	for (int i = 0; i < N; ++i) {
