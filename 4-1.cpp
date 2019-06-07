@@ -90,7 +90,7 @@ void deletewords(char *str, char *buff, char check[M]) {
 					else { str = tmp + end; break; }
 				}
 				if (i == end - 2) {
-					strcpy(tmp, tmp + end);
+					strcpy(tmp, tmp + end); 
 				}
 				i = 0;
 			}
